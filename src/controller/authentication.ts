@@ -2,7 +2,7 @@ import { createUser, getUserWithEmail } from "../models/user";
 import { create } from "domain";
 import express from "express";
 import { encode } from "../helpers/index";
-import { badRequest, success } from "helpers/res.helper";
+import { badRequest, success } from "../helpers/res.helper";
 
 export const register = async (
   req: express.Request,

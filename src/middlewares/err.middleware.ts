@@ -11,4 +11,3 @@ export const errorMiddleware = (err: any, req: express.Request, res: express.Res
     }
     badRequest("Interal server",res,505)
 };
-// export const errorMiddleware = (err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
