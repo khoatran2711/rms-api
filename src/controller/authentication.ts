@@ -3,6 +3,7 @@ import { create } from "domain";
 import express from "express";
 import { encode } from "../helpers/index";
 import { badRequest, success } from "../helpers/res.helper";
+import moment from "moment";
 
 export const register = async (
   req: express.Request,
@@ -44,7 +45,11 @@ export const login = async (req: express.Request, res: express.Response) => {
       userName: user.userName,
     };
     const access_token = encode(sucessUser, { expiresIn: "1 day" });
-    return success(access_token);
+    let data = {
+      access_token,
+      experian: moment().add(1,'days').format("LTS-DD/MM/YYYY")
+    }
+    return success(data,res);
   } catch (error) {
     badRequest("Interal server", res, 505);
   }
