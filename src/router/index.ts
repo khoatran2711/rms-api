@@ -1,8 +1,8 @@
 import express from 'express';
-import authentication from './admin/authentication';
+import admin_route from './admin_route';
 const router = express.Router();
 
 export default (): express.Router => {
-    authentication(router);
+    admin_route(router)
     return router
 }
