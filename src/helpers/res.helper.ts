@@ -16,4 +16,4 @@ export const success = (data: any, res?: express.Response) => {
       message: message,
       status: "error",
     });
-  };
+  };  
