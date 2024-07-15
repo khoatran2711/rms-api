@@ -50,3 +50,25 @@ export const login = async (req: express.Request, res: express.Response) => {
 
   }
 };
+export const initAdmin = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const hashPass = encode("admin123");
+    const data = {
+      email: "admin@gmail.com",
+      password: hashPass,
+      userName: "admin",
+    };
+    const existingUser = await getUserWithEmail(data.email);
+    if (existingUser) {
+      return badRequest("Email address already exists", res);
+    }
+    const _ = await createUser(data);
+    return success("", res);
+  } catch (error) {
+    badRequest("Interal Server", res, 505);
+  }
+};
+
