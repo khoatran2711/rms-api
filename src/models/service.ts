@@ -22,9 +22,9 @@ export const createService = async (value: Record<string, any>) => {
   });
 };
 
-export const deleteServicebyId = async (id: String) => {
+export const deleteServiceById = async (id: String) => {
     ServiceModel.findOneAndDelete({ _id: id });
 };
-export const updateUserById = async (id: String, data: Record<string, any>) => {
+export const updateServiceById = async (id: String, data: Record<string, any>) => {
     ServiceModel.findOneAndUpdate({ _id: id }, data);
 };
