@@ -10,7 +10,7 @@ export const RoleModel = <any>mongoose.model("Role", RoleScheme);
 
 export const getRoles = async() => RoleModel.find();
 export const getRoleById = async (id: String) => {
-    RoleModel.findOne({ id });
+  return RoleModel.findOne({ id });
 };
 
 export const getRoleWithQuery = async (query: any) => RoleModel.paginate(query.data,query.option)

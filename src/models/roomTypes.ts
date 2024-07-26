@@ -1,5 +1,5 @@
 import { paginate } from 'mongoose-paginate-v2';
-import { NewScheme } from "helpers/shceme.helper";
+import { NewScheme } from "../helpers/shceme.helper";
 import mongoose from "mongoose";
 
 const RoomTypesScheme = NewScheme ({

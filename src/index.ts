@@ -35,7 +35,6 @@ app.use(express.json())
 
 // globalMiddleware(app)
 app.use(cors(corsOptions));
-app.use(errorMiddleware)
 app.use("/api/v1", router());
 
 const server = http.createServer(app);

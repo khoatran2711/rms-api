@@ -44,10 +44,12 @@ export const login = async (req: express.Request, res: express.Response) => {
       userName: user.userName
     }
     const access_token = encode(sucessUser,{expiresIn: "1 day",});
-    return success(access_token)
+    return success(
+      {access_token,
+      expiresIn: "1 day"},res)
   } catch (error) {
+    console.log(error)
     badRequest("Interal server",res,505)
-
   }
 };
 export const initAdmin = async (

@@ -1,6 +1,6 @@
 import { paginate } from 'mongoose-paginate-v2';
 import { getServiceById } from './service';
-import { NewScheme } from "helpers/shceme.helper";
+import { NewScheme } from "../helpers/shceme.helper";
 import mongoose from "mongoose";
 
 const RoomScheme = NewScheme ({
@@ -14,12 +14,15 @@ export const RoomModel = <any>mongoose.model("Room", RoomScheme);
 
 export const getRooms = async() => RoomModel.find();
 export const getRoomById = async (id: String) => {
-    RoomModel.findOne({ id });
+    return RoomModel.findOne({ id });
+};
+export const getRoomByName = async (name: String) => {
+   return RoomModel.findOne({ name });
 };
 
 export const getRoomWithQuery = async (query: any) => RoomModel.paginate(query.data, query.option)
 
-export const createRoom = async (value: Record<string, any>) => {
+export const addRoom = async (value: Record<string, any>) => {
     new RoomModel(value).save().then((Room:any) => {
         return Room.toObject();
     });
