@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 const RoomScheme = NewScheme ({
     name: { type: String },
-    roomTypeID: { type: String },
+    roomTypeID: { type: [String] },
     price: { type: Number },
     status: { type: String } 
 })
