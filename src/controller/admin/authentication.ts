@@ -32,12 +32,12 @@ export const login = async (req: express.Request, res: express.Response) => {
     const { email, password } = req.body;
     const user = await getUserWithEmail(email);
     if (!user) {
-      return badRequest("username or password incorrect ")
+      return badRequest("username or password incorrect ",res)
     }
 
     const hashPass = encode(password);
     if (user.password !== hashPass) {
-      return badRequest("username or password incorrect ")
+      return badRequest("username or password incorrect ",res)
     }
     const sucessUser = {
       email: user.email,

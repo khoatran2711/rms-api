@@ -4,8 +4,8 @@ import { addRoom, getRoomById, getRoomByName } from "../../models/room";
 
 
 export const createRoom = async (
-  res: express.Response,
-  req: express.Request
+  req: express.Request,
+  res: express.Response
 ) => {
 try {
     const { name, roomTypeID, price, status } = req.body;
@@ -22,6 +22,6 @@ try {
     const addNewQuery = await addRoom(roomData)
     return success("", res)
 } catch (error) {
-    badRequest("Interal server !",res)
+    return badRequest("Interal server !",res,500)
 }
 };

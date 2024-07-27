@@ -12,6 +12,7 @@ export const success = (data: any, res?: express.Response) => {
     res?: express.Response,
     code = 400
   ) => {
+    console.log(code)
     res.status(code).send({
       message: message,
       status: "error",
