@@ -16,5 +16,5 @@ export default (router: express.Router) => {
 
   // Room routes
   router.post(get("/room/create"),createRoom);
-  router.put(get("/room/update"),updateRoom);
+  router.put(get("/room/update/:id"),updateRoom);
 };
