@@ -62,3 +62,20 @@ export const deleteRoom = async (
     return badRequest("Internal server !", res, 500);
   }
 }
+
+export const getRoom = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const room = await RoomModel.findById(req.params.id);
+    if(!room)
+    {
+      return badRequest("Room Not Found !", res);
+    }
+    return res.send(room);
+  }
+  catch (error) {
+    return badRequest("Internal server !", res, 500);
+  }
+}
