@@ -1,14 +1,18 @@
-import { updateRoomById } from './../../models/room';
+import { deleteRoombyId, updateRoomById } from "./../../models/room";
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addRoom, getRoomById, getRoomByName, RoomModel } from "../../models/room";
-
+import {
+  addRoom,
+  getRoomById,
+  getRoomByName,
+  RoomModel,
+} from "../../models/room";
 
 export const createRoom = async (
   req: express.Request,
   res: express.Response
 ) => {
-try {
+  try {
     const { name, roomTypeID, price, status } = req.body;
     const existRoom = await getRoomByName(name);
     if (existRoom) {
@@ -18,47 +22,52 @@ try {
       name,
       roomTypeID,
       price,
-      status
+      status,
     };
-    const addNewQuery = await addRoom(roomData)
-    return success("", res)
-} catch (error) {
-    return badRequest("Internal server !",res,500)
-}
+    const addNewQuery = await addRoom(roomData);
+    return success("", res);
+  } catch (error) {
+    return badRequest("Internal server !", res, 500);
+  }
 };
-
 
 export const updateRoom = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
-    const { name, roomTypeID, price, status } = req.body;
-    const room = await RoomModel.findByIdAndUpdate(req.params.id, { name, roomTypeID, price, status}, { new: true, runValidators: true});
-    if(!room)
-    {
+    const { id, name, roomTypeID, price, status } = req.body;
+    const existRoom = await getRoomById(id);
+    if (!existRoom) {
       return badRequest("Room Not Found !", res);
     }
-    return success("",res);
+    const data = {
+      id,
+      name,
+      roomTypeID,
+      price,
+      status,
+    };
+    const room = await updateRoomById(id, data)
+    return success("", res);
+  } catch (error) {
+    return badRequest("Internal server !", res, 500);
   }
-  catch (error) {
-    return badRequest("Internal server !", res,500);
-  }
-}
+};
 
 export const deleteRoom = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
-    const room = await RoomModel.findByIdAndDelete(req.params.id);
-    if(!room)
-    {
+    const id = req.params.id
+    const existRoom = await getRoomById(id);
+    if (!existRoom) {
       return badRequest("Room Not Found !", res);
     }
-    return success("",res);
-  }
-  catch (error) {
+    const room = await deleteRoombyId(id);
+    return success("", res);
+  } catch (error) {
     return badRequest("Internal server !", res, 500);
   }
-}
+};
