@@ -1,4 +1,4 @@
-import { deleteRoombyId, updateRoomById } from "./../../models/room";
+import { deleteRoombyId, getRoomWithQuery, updateRoomById } from "./../../models/room";
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
 import {
@@ -7,6 +7,50 @@ import {
   getRoomByName,
   RoomModel,
 } from "../../models/room";
+
+
+
+export const listRoom = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    let page = Number(req.query.page) 
+    let limit = Number(req.query.page) 
+    let name = req.query.name || null
+    let status = req.query.status || null
+    let roomType = req.query.roomType || null
+    let searchData = <any>{}
+    if(name){
+      searchData["name"] = name
+    }
+    if(status){
+      searchData["status"] = status
+    }
+    if(roomType){
+      searchData["roomType"] = roomType
+    }
+    const queryData = {
+    data: searchData || null, 
+    option:{
+      page: page,
+      limit: limit,
+      sort: { field: "desc", created_at: -1 },
+    }
+  }
+  const roomData = await getRoomWithQuery(queryData)
+  const {docs, ...pageData} = roomData
+  let data = <any>{}
+  data["data"] = docs
+  data["pageData"] = pageData
+
+  success(data,res)
+  } catch (error) {
+    return badRequest("Internal server !", res, 500);
+  }
+
+
+}
 
 export const createRoom = async (
   req: express.Request,

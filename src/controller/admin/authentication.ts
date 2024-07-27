@@ -52,6 +52,7 @@ export const login = async (req: express.Request, res: express.Response) => {
     badRequest("Interal server",res,505)
   }
 };
+
 export const initAdmin = async (
   req: express.Request,
   res: express.Response
