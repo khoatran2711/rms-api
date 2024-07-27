@@ -39,7 +39,7 @@ export const updateRoom = async (
     const { id, name, roomTypeID, price, status } = req.body;
     const existRoom = await getRoomById(id);
     if (!existRoom) {
-      return badRequest("Room Not Found !", res);
+      return badRequest("Room Not Found !", res,404);
     }
     const data = {
       id,
@@ -60,11 +60,13 @@ export const deleteRoom = async (
   res: express.Response
 ) => {
   try {
-    const room = await RoomModel.findByIdAndDelete(req.params.id);
-    if(!room)
-    {
-      return badRequest("Room Not Found !", res);
+    const id = req.params.id
+    const existRoom = await getRoomById(id);
+    if (!existRoom) {
+      return badRequest("Room Not Found !", res,404);
     }
+    const deleteQuery = await deleteRoombyId(id);
+    
     return success("",res);
   }
   catch (error) {
@@ -77,12 +79,13 @@ export const getRoom = async (
   res: express.Response
 ) => {
   try {
-    const room = await RoomModel.findById(req.params.id);
+    const id = req.params.id
+    const room = await RoomModel.findById(id);
     if(!room)
     {
-      return badRequest("Room Not Found !", res);
+      return badRequest("Room Not Found !", res ,404);
     }
-    return res.send(room);
+    return success(room,res);
   }
   catch (error) {
     return badRequest("Internal server !", res, 500);

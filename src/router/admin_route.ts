@@ -18,4 +18,5 @@ export default (router: express.Router) => {
   router.post(get("/room/create"),createRoom);
   router.post(get("/room/update"),updateRoom);
   router.delete(get("/room/delete"),deleteRoom);
+  router.get(get("/room/detail"),getRoom);
 };
