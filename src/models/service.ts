@@ -7,14 +7,14 @@ const ServiceScheme = NewScheme({
     productsID: { type: [String] },
   });
 
-export const ServiceModel = <any>mongoose.model("Service", ServiceScheme);
+export const ServiceModel = mongoose.model("Service", ServiceScheme);
 
 export const getServices = async() => ServiceModel.find();
 export const getServiceById = async (id: String) => {
-    ServiceModel.findOne({ id });
+    ServiceModel.findOne({_id:id});
 };
 
-export const getServiceWithQuery = async (query: any) => ServiceModel.paginate(query.data,query.option)
+export const getServiceWithQuery = async (query: any) => (ServiceModel as any).paginate(query.data,query.option)
 
 export const createService = async (value: Record<string, any>) => {
   new ServiceModel(value).save().then((Service:any) => {

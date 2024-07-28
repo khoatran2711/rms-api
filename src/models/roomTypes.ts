@@ -7,14 +7,14 @@ const RoomTypesScheme = NewScheme ({
     description: { type: String }
 })
 
-export const RoomTypesModel = <any>mongoose.model("RoomTypes", RoomTypesScheme);
+export const RoomTypesModel = mongoose.model("RoomTypes", RoomTypesScheme);
 
 export const getRoomTypes = () => RoomTypesModel.find();
 export const getRoomTypesById = async (id: String) => {
-    RoomTypesModel.findOne({ id });
+    RoomTypesModel.findOne({_id:id});
 };
 
-export const getRoomTypesWithQuery = async(query: any) => RoomTypesModel.paginate(query.data, query.option)
+export const getRoomTypesWithQuery = async(query: any) => (RoomTypesModel as any).paginate(query.data, query.option)
 
 export const createRoomTypes = async (value: Record<string,any>) => {
     new RoomTypesModel(value).save().then((RoomTypes:any) => {

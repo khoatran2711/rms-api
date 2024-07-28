@@ -6,14 +6,14 @@ const RoleScheme = NewScheme({
     serviceID: { type: [String] },
   });
 
-export const RoleModel = <any>mongoose.model("Role", RoleScheme);
+export const RoleModel = mongoose.model("Role", RoleScheme);
 
 export const getRoles = async() => RoleModel.find();
 export const getRoleById = async (id: String) => {
-  return RoleModel.findOne({ id });
+  return RoleModel.findOne({_id:id});
 };
 
-export const getRoleWithQuery = async (query: any) => RoleModel.paginate(query.data,query.option)
+export const getRoleWithQuery = async (query: any) => (RoleModel as any).paginate(query.data,query.option)
 
 export const createRole = async (value: Record<string, any>) => {
   new RoleModel(value).save().then((role:any) => {
