@@ -1,5 +1,4 @@
-import { paginate } from 'mongoose-paginate-v2';
-import { getServiceById } from './service';
+
 import { NewScheme } from "../helpers/shceme.helper";
 import mongoose from "mongoose";
 

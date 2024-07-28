@@ -14,9 +14,13 @@ export const getProductById = async (id: String) => {
     ProductModel.findOne({ id });
 };
 
+export const getProductsByName = async (name: String) => {
+  return ProductModel.findOne({ name });
+};
+
 export const getProductWithQuery = async (query: any) => ProductModel.paginate(query.data,query.option)
 
-export const createProduct = async (value: Record<string, any>) => {
+export const addProduct = async (value: Record<string, any>) => {
   new ProductModel(value).save().then((Product:any) => {
     return Product.toObject();
   });
