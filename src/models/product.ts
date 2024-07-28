@@ -11,7 +11,7 @@ export const ProductModel = <any>mongoose.model("Product", ProductScheme);
 
 export const getProducts = async() => ProductModel.find();
 export const getProductById = async (id: String) => {
-    ProductModel.findOne({ id });
+    return ProductModel.findOne({ id });
 };
 
 export const getProductsByName = async (name: String) => {
@@ -29,6 +29,6 @@ export const addProduct = async (value: Record<string, any>) => {
 export const deleteProductbyId = async (id: String) => {
     ProductModel.findOneAndDelete({ _id: id });
 };
-export const updateUserById = async (id: String, data: Record<string, any>) => {
+export const updateProductById = async (id: String, data: Record<string, any>) => {
     ProductModel.findOneAndUpdate({ _id: id }, data);
 };

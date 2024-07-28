@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addProduct, getProductsByName } from "./../../models/product";
+import { addProduct, deleteProductbyId, getProductById, getProductsByName, updateProductById } from "./../../models/product";
 
 export const createProduct = async(
     req: express.Request,

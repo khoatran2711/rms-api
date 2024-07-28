@@ -23,5 +23,5 @@ export default (router: express.Router) => {
   router.get(get("/room/detail"),getRoom);
 
   //Products routes
-  router.post(get("/product/create"),createProduct)
+  router.post(get("/product/create"),createProduct);
 };
