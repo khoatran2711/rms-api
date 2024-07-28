@@ -81,7 +81,6 @@ export const updateRoom = async (
 ) => {
   try {
     const { id, name, roomTypeID, price, status } = req.body;
-    console.log(id)
     const existRoom = await getRoomById(id);
     if (!existRoom) {
       return badRequest("Room Not Found !", res,404);
@@ -93,9 +92,7 @@ export const updateRoom = async (
       price,
       status,
     };
-    console.log(data)
     const room = await updateRoomById(id, data)
-    console.log(room)
     return success("", res);
   } catch (error) {
     return badRequest("Internal server !", res, 500);
