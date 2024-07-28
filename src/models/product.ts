@@ -7,14 +7,14 @@ const ProductScheme = NewScheme({
     price: {type: String},
   });
 
-export const ProductModel = <any>mongoose.model("Product", ProductScheme);
+export const ProductModel = mongoose.model("Product", ProductScheme);
 
 export const getProducts = async() => ProductModel.find();
 export const getProductById = async (id: String) => {
-    ProductModel.findOne({ id });
+    ProductModel.findOne({_id:id});
 };
 
-export const getProductWithQuery = async (query: any) => ProductModel.paginate(query.data,query.option)
+export const getProductWithQuery = async (query: any) => (ProductModel as any).paginate(query.data,query.option)
 
 export const createProduct = async (value: Record<string, any>) => {
   new ProductModel(value).save().then((Product:any) => {

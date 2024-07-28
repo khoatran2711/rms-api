@@ -11,14 +11,14 @@ const UserScheme = NewScheme({
   dateOfBirth: { type: String },
   roleID: { type: String },
 })
-export const UserModel = <any>mongoose.model("User", UserScheme);
+export const UserModel = mongoose.model("User", UserScheme);
 
 export const getUsers = () => UserModel.find();
 export const getUserWithEmail = (email: String) => UserModel.findOne({ email });
 export const getUserById = async (id: String) => {
-  UserModel.findOne({ id });
+  UserModel.findOne({_id:id});
 };
-export const getUserByQuery = (query: any) => UserModel.paginate(query.data,query.option);
+export const getUserByQuery = (query: any) => (UserModel as any).paginate(query.data,query.option);
 
 export const createUser = async (value: Record<string, any>) => {
   new UserModel(value).save().then((user: any) => {
