@@ -14,6 +14,10 @@ export const getRoomTypesById = async (id: String) => {
     RoomTypesModel.findOne({_id:id});
 };
 
+export const getRoomTypesByName = async (name: string) => {
+    return RoomTypesModel.findOne({ name });
+};
+
 export const getRoomTypesWithQuery = async(query: any) => (RoomTypesModel as any).paginate(query.data, query.option)
 
 export const createRoomTypes = async (value: Record<string,any>) => {
