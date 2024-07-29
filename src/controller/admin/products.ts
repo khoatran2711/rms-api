@@ -64,7 +64,7 @@ export const updateProduct = async (
 ) => {
     try {
         const { id, name, decscription, price } = req.body;
-        const existProduct = await getProductById(id);
+        const existProduct = await getProductById(id as string);
         if(!existProduct) 
         {
             return badRequest("Product Not Found !", res, 404);
@@ -75,7 +75,7 @@ export const updateProduct = async (
             decscription,
             price
         }
-        const product = await updateProductbyId(id, data);
+        const product = await updateProductbyId(id as string, data);
         return success("", res);
     }
     catch (error) 

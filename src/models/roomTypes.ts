@@ -4,14 +4,14 @@ import mongoose from "mongoose";
 
 const RoomTypesScheme = NewScheme ({
     name: { type: String },
-    description: { type: String }
+    decscription: { type: String }
 })
 
 export const RoomTypesModel = mongoose.model("RoomTypes", RoomTypesScheme);
 
 export const getRoomTypes = () => RoomTypesModel.find();
 export const getRoomTypesById = async (id: String) => {
-    RoomTypesModel.findOne({_id:id});
+    return RoomTypesModel.findOne({_id:id});
 };
 
 export const getRoomTypesByName = async (name: string) => {
@@ -27,9 +27,9 @@ export const createRoomTypes = async (value: Record<string,any>) => {
 };
 
 export const deleteRoomTypesById = async (id: String) => {
-    RoomTypesModel.findOneAndDelete({ _id: id});
+    return RoomTypesModel.findOneAndDelete({ _id: id});
 };
 
 export const updateRoomTypesById = async (id: String, data: Record<string, any>) => {
-    RoomTypesModel.findOneAndUpdate({ _id: id}, data);
+    return RoomTypesModel.findOneAndUpdate({ _id: id}, data);
 };
