@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addProduct, deleteProductbyId, getProductById, getProductsByName, getProductWithQuery, updateProductbyId } from "./../../models/product";
+import { addProduct, deleteProductbyId, getProductById, getProductsByName, getProductWithQuery, ProductModel, updateProductbyId } from "./../../models/product";
 
 export const listProduct = async (
     req: express.Request,
@@ -99,6 +99,25 @@ export const deleteProduct = async (
         return success("", res);
     }
     catch (error) {
+        return badRequest("Internal server !", res, 500);
+    }
+}
+
+export const getProduct = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const id = req.query.id as string;
+        const product = await ProductModel.findById(id);
+        if(!product)
+        {
+            return badRequest("Product Not Found !", res, 404);
+        }
+        return success(product, res);
+    }
+    catch (error) 
+    {
         return badRequest("Internal server !", res, 500);
     }
 }

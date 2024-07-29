@@ -2,7 +2,7 @@ import express from "express";
 import { errorMiddleware } from "../middlewares/err.middleware";
 import { initAdmin, login, register } from "../controller/admin/authentication";
 import { createRoom, updateRoom, deleteRoom, getRoom, listRoom } from "../controller/admin/room";
-import { createProduct, deleteProduct, listProduct, updateProduct } from "../controller/admin/products";
+import { createProduct, deleteProduct, getProduct, listProduct, updateProduct } from "../controller/admin/products";
 
 const get = (url: string) => {
   return "/admin"+url
@@ -27,4 +27,5 @@ export default (router: express.Router) => {
   router.post(get("/product/create"),createProduct);
   router.post(get("/product/update"),updateProduct);
   router.delete(get("/product/delete"),deleteProduct);
+  router.get(get("/product/detail"),getProduct);
 };
