@@ -83,3 +83,22 @@ export const updateProduct = async (
         return badRequest("Internal server !", res, 500);
     }
 }
+
+export const deleteProduct = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const id = req.query.id;
+        const existProduct = await getProductById(id as string);
+        if(!existProduct)
+        {
+            return badRequest("Product Not Found !", res, 404);
+        }
+        const deleteQuery = await deleteProductbyId(id as string);
+        return success("", res);
+    }
+    catch (error) {
+        return badRequest("Internal server !", res, 500);
+    }
+}

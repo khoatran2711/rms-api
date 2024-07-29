@@ -10,7 +10,7 @@ const ProductScheme = NewScheme({
 export const ProductModel = mongoose.model("Product", ProductScheme);
 
 export const getProducts = async() => ProductModel.find();
-export const getProductById = async (id: String) => {
+export const getProductById = async (id: string) => {
     return ProductModel.findOne({ _id: id });
 };
 
@@ -27,7 +27,7 @@ export const addProduct = async (value: Record<string, any>) => {
 };
 
 export const deleteProductbyId = async (id: String) => {
-    ProductModel.findOneAndDelete({ _id: id });
+    return ProductModel.findOneAndDelete({ _id: id });
 };
 export const updateProductbyId = async (id: String, data: Record<string, any>) => {
   return ProductModel.findOneAndUpdate({_id:id}, data)

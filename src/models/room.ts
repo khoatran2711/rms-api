@@ -13,7 +13,6 @@ export const RoomModel = mongoose.model("Room", RoomScheme);
 
 export const getRooms = async() => RoomModel.find();
 export const getRoomByID = async (id: string) =>{
-    console.log(id)
    return RoomModel.findOne({ _id: id })
 };
   

@@ -105,7 +105,6 @@ export const deleteRoom = async (
 ) => {
   try {
     const id = req.query.id ; 
-    console.log(id)
     const existRoom = await getRoomByID(id as string) ;
     if (!existRoom) {
       return badRequest("Room Not Found !", res,404);
@@ -117,23 +116,7 @@ export const deleteRoom = async (
     return badRequest("Internal server !", res, 500);
   }
 }
-// export const deleteRoom = async (
-//   req: express.Request,
-//   res: express.Response
-// ) => {
-//   try {
-//     const id = req.query.id
-//     const existRoom = await getRoomByID(id as string);
-//     if(!existRoom){
-//       return badRequest("Room Not Found !", res,404);
-//     }
-//     const deleteQuery = await deleteRoombyId(id as string);
-//     return success("",res);
-//   } catch (error) {
-//     return badRequest("Internal server !", res, 500);
-    
-//   }
-// }
+
 
 export const getRoom = async (
   req: express.Request,
