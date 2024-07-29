@@ -28,7 +28,7 @@ export const addRoom = async (value: Record<string, any>) => {
 };
 
 export const deleteRoombyId = async(id: String) => {
-    RoomModel.findOneAndDelete({ _id: id});
+   RoomModel.findOneAndDelete({ _id: id});
 };
 
 export const updateRoomById = async (id: String, data: Record<string, any>) => {

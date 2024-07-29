@@ -104,13 +104,12 @@ export const deleteRoom = async (
   res: express.Response
 ) => {
   try {
-    const id = req.params.id
+     const id = req.params.id; 
     const existRoom = await getRoomById(id);
     if (!existRoom) {
       return badRequest("Room Not Found !", res,404);
     }
-    const deleteQuery = await deleteRoombyId(id);
-    
+    const deleteQuery = await deleteRoombyId(id);    
     return success("",res);
   }
   catch (error) {
