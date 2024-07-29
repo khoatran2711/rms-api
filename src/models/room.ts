@@ -12,10 +12,12 @@ const RoomScheme = NewScheme ({
 export const RoomModel = mongoose.model("Room", RoomScheme);
 
 export const getRooms = async() => RoomModel.find();
-export const getRoomById = async (id: String) => {
-    return RoomModel.findOne({ _id: id });
+export const getRoomByID = async (id: string) =>{
+    console.log(id)
+   return RoomModel.findOne({ _id: id })
 };
-export const getRoomByName = async (name: String) => {
+  
+export const getRoomByName = async (name: string) => {
    return RoomModel.findOne({ name });
 };
 
@@ -27,10 +29,10 @@ export const addRoom = async (value: Record<string, any>) => {
     });
 };
 
-export const deleteRoombyId = async(id: String) => {
-   RoomModel.findOneAndDelete({ _id: id});
+export const deleteRoombyId = async(id: string) => {
+   return RoomModel.findOneAndDelete({ _id: id});
 };
 
-export const updateRoomById = async (id: String, data: Record<string, any>) => {
+export const updateRoomById = async (id: string, data: Record<string, any>) => {
    return RoomModel.findOneAndUpdate({_id:id}, data)
 }
