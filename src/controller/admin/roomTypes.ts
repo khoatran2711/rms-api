@@ -1,6 +1,39 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { createRoomTypes, deleteRoomTypesById, getRoomTypesById, getRoomTypesByName, RoomTypesModel, updateRoomTypesById } from "./../../models/roomTypes";
+import { createRoomTypes, deleteRoomTypesById, getRoomTypesById, getRoomTypesByName, getRoomTypesWithQuery, RoomTypesModel, updateRoomTypesById } from "./../../models/roomTypes";
+import { getRoomBookingWithQuery } from "models/roomBooking";
+
+export const listRoomType = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        let page = Number(req.query.page);
+        let limit = Number(req.query.page);
+        let name = req.query.name || null;
+        let searchData = <any>{}
+        if(name) {
+            searchData["name"] = name;
+        }
+        const queryData = {
+            data: searchData || null,
+            option: {
+                page: page,
+                limit: limit,
+                 sort: { field: "desc", created_at: -1 },
+            }
+        }
+        const roomTypeData = await getRoomTypesWithQuery(queryData);
+        const {docs, ...pageData} = roomTypeData;
+        let data = <any>{}
+        data["data"] = docs
+        data["pageData"] = pageData
+
+        success(data,res)
+    } catch (error) {
+        return badRequest("Internal server!", res, 500);
+    }
+}
 
 export const createRoomType = async(
     req: express.Request,
