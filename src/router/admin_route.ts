@@ -3,7 +3,7 @@ import { errorMiddleware } from "../middlewares/err.middleware";
 import { initAdmin, login, register } from "../controller/admin/authentication";
 import { createRoom, updateRoom, deleteRoom, getRoom, listRoom } from "../controller/admin/room";
 import { createProduct, deleteProduct, getProduct, listProduct, updateProduct } from "../controller/admin/products";
-import { createRoomType, updateRoomType } from "../controller/admin/roomTypes";
+import { createRoomType, deleteRoomType, updateRoomType } from "../controller/admin/roomTypes";
 
 const get = (url: string) => {
   return "/admin"+url
@@ -33,4 +33,5 @@ export default (router: express.Router) => {
   //RoomTypes router
   router.post(get("/roomtype/create"),createRoomType);
   router.post(get("/roomtype/update"),updateRoomType);
+  router.delete(get("/roomtype/delete"),deleteRoomType);
 };
