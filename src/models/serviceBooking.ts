@@ -2,12 +2,11 @@ import { NewScheme } from "../helpers/shceme.helper";
 import mongoose from "mongoose";
 
 const ServiceBookingScheme = NewScheme({
-  name: { type: String },
+  products: { type: String },
   totalAmount: { type: Number },
-  productsID: { type: [String] },
   customerName: { type: String },
   customerPhoneNumber: { type: String },
-  status: { type: String },
+  userID: { type: String }
 });
 
 export const ServiceBookingModel = mongoose.model(

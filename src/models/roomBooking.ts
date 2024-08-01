@@ -5,7 +5,10 @@ import mongoose from "mongoose"
 const RoomBookingScheme = NewScheme({
     roomID: { type: String },
     userID: { type: String },
-    customers: { type: String },
+    customerName: { type: String },
+    identityNumber: { type: String },
+    phoneNumber: { type: String },
+    member: { type: String },
     checkInDate: { type: Date },
     checkOutDate: { type: Date },
     status: { type: String }
