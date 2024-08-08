@@ -31,9 +31,9 @@ export default (router: express.Router) => {
   router.get(get("/product/detail"),getProduct);
 
   //RoomTypes router
-  router.get(get("/roomtype/list"),listRoomType);
-  router.post(get("/roomtype/create"),createRoomType);
-  router.post(get("/roomtype/update"),updateRoomType);
-  router.delete(get("/roomtype/delete"),deleteRoomType);
-  router.get(get("/roomtype/detail"),getRoomType);
+  router.get(get("/roomType/list"),listRoomType);
+  router.post(get("/roomType/create"),createRoomType);
+  router.post(get("/roomType/update"),updateRoomType);
+  router.delete(get("/roomType/delete"),deleteRoomType);
+  router.get(get("/roomType/detail"),getRoomType);
 };
