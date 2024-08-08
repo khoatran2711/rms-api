@@ -3,7 +3,7 @@ import { NewScheme } from "../helpers/shceme.helper"
 import mongoose from "mongoose"
 
 const RoomBookingScheme = NewScheme({
-    roomID: { type: String },
+    roomID: { type: [{}] },
     userID: { type: String },
     customerName: { type: String },
     identityNumber: { type: String },

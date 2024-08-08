@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { ProductModel } from "./product";
 
 const ServiceBookingScheme = NewScheme({
-  products: { type: [ProductModel] },
+  products: { type: [{}] },
   totalAmount: { type: Number },
   customerName: { type: String },
   customerPhoneNumber: { type: String },
