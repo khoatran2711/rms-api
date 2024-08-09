@@ -1,7 +1,7 @@
 import { NewScheme } from "../helpers/shceme.helper";
 import mongoose from "mongoose";
 
-const ProductScheme = NewScheme({
+export const ProductScheme = NewScheme({
     name: { type: String },
     decscription: {type: String},
     price: {type: String},
