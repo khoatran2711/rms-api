@@ -9,6 +9,8 @@ import listEndpoints from 'express-list-endpoints';
 import { errorMiddleware } from "./middlewares/err.middleware";
 import { connectDB } from "./db/connection.db";
 import dotenv from 'dotenv';
+import path from "path";
+import fileUpload from "express-fileupload";
 dotenv.config()
 
 const logRoutes = (app: express.Application) =>{
@@ -31,6 +33,11 @@ app.use(compression());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(fileUpload({
+  createParentPath: true,
+}));
+//static
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 
 // globalMiddleware(app)
