@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addServiceBooking, getServiceBookingById, getServiceBookingByProduct, updateServiceBookingById } from "./../../models/serviceBooking";
+import { addServiceBooking, deleteServiceBookingbyId, getServiceBookingById, getServiceBookingByProduct, updateServiceBookingById } from "./../../models/serviceBooking";
 
 export const createServiceBooking = async (
     req: express.Request,
@@ -49,6 +49,24 @@ export const updateServiceBooking = async (
         }
         const serviceBooking = await updateServiceBookingById(id as string, data);
         return res.send(serviceBooking);
+    } catch (error) {
+        return badRequest("Internal server!", res, 500);
+    }
+}
+
+export const deleteServiceBooking = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const id = req.query.id;
+        const existServiceBooking = await getServiceBookingById(id as string);
+        if(!existServiceBooking)
+        {
+            return badRequest("Service Booking Not Found!", res, 404);
+        }
+        const deleteQuery = await deleteServiceBookingbyId(id as string);
+        return success("",res);
     } catch (error) {
         return badRequest("Internal server!", res, 500);
     }

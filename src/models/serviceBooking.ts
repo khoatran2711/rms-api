@@ -34,7 +34,7 @@ export const addServiceBooking = async (value: Record<string, any>) => {
 };
 
 export const deleteServiceBookingbyId = async (id: String) => {
-  ServiceBookingModel.findOneAndDelete({ _id: id });
+  return ServiceBookingModel.findOneAndDelete({ _id: id });
 };
 export const updateServiceBookingById = async (
   id: String,
