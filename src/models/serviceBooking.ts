@@ -20,10 +20,14 @@ export const getServiceBookingById = async (id: String) => {
   ServiceBookingModel.findOne({ _id: id });
 };
 
+export const getServiceBookingByProduct = async (products: [{}]) => {
+  return ServiceBookingModel.findOne({ products });
+};
+
 export const getServiceBookingWithQuery = async (query: any) =>
   (ServiceBookingModel as any).paginate(query.data, query.option);
 
-export const createServiceBooking = async (value: Record<string, any>) => {
+export const addServiceBooking = async (value: Record<string, any>) => {
   new ServiceBookingModel(value).save().then((ServiceBooking: any) => {
     return ServiceBooking.toObject();
   });
