@@ -16,8 +16,8 @@ export const ServiceBookingModel = mongoose.model(
 );
 
 export const getServiceBookings = async () => ServiceBookingModel.find();
-export const getServiceBookingById = async (id: String) => {
-  ServiceBookingModel.findOne({ _id: id });
+export const getServiceBookingById = async (id: string) => {
+  return ServiceBookingModel.findOne({ _id: id });
 };
 
 export const getServiceBookingByProduct = async (products: [{}]) => {
@@ -40,5 +40,5 @@ export const updateServiceBookingById = async (
   id: String,
   data: Record<string, any>
 ) => {
-  ServiceBookingModel.findOneAndUpdate({ _id: id }, data);
+  return ServiceBookingModel.findOneAndUpdate({ _id: id }, data);
 };

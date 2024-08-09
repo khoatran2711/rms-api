@@ -4,7 +4,7 @@ import { initAdmin, login, register } from "../controller/admin/authentication";
 import { createRoom, updateRoom, deleteRoom, getRoom, listRoom } from "../controller/admin/room";
 import { createProduct, deleteProduct, getProduct, listProduct, updateProduct } from "../controller/admin/products";
 import { createRoomType, deleteRoomType, getRoomType, listRoomType, updateRoomType } from "../controller/admin/roomTypes";
-import { createServiceBooking } from "../controller/admin/serviceBooking";
+import { createServiceBooking, updateServiceBooking } from "../controller/admin/serviceBooking";
 
 const get = (url: string) => {
   return "/admin"+url
@@ -40,4 +40,5 @@ export default (router: express.Router) => {
 
   //ServiceBooking routes
   router.post(get("/serviceBooking/create"), createServiceBooking);
+  router.post(get("/serviceBooking/update"),updateServiceBooking);
 };
