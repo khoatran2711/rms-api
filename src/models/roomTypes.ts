@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 
 const RoomTypesScheme = NewScheme ({
     name: { type: String },
-    decscription: { type: String }
+    imageUrl: {type:String},
+    maxPeople: {type:String},
+    decscription: { type: String },
 })
 
 export const RoomTypesModel = mongoose.model("RoomTypes", RoomTypesScheme);
