@@ -8,7 +8,7 @@ const RoomBookingScheme = NewScheme({
     customerName: { type: String },
     identityNumber: { type: String },
     phoneNumber: { type: String },
-    member: { type: String },
+    members: { type: String },
     checkInDate: { type: Date },
     checkOutDate: { type: Date },
     status: { type: String }
@@ -20,17 +20,22 @@ export const getRoomBookingById = async(id: String) => {
     RoomBookingModel.findOne({_id:id});
 };
 
+export const getRoomBookingByPhoneNumber = async (phoneNumber: string) =>
+{
+    return RoomBookingModel.findOne({ phoneNumber });
+};
+
 export const getRoomBookingWithQuery = async (query: any) => (RoomBookingModel as any).paginate(query.data, query.option)
-export const createRoomBooking = async (value: Record<string, any>) => {
+export const addRoomBooking = async (value: Record<string, any>) => {
     new RoomBookingModel(value).save().then((RoomBooking:any) => {
         return RoomBooking.toObject();
     });
 };
 
 export const deleteRoomBookingById = async (id: String) => {
-    RoomBookingModel.findOneAndDelete({ _id: id });
+    return RoomBookingModel.findOneAndDelete({ _id: id });
 };
 
 export const updateRoomBookingById = async (id: String, data: Record<string,any>) => {
-    RoomBookingModel.findOneAndUpdate({ _id: id}, data);
+    return RoomBookingModel.findOneAndUpdate({ _id: id}, data);
 };
