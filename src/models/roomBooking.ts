@@ -17,7 +17,7 @@ export const RoomBookingModel = mongoose.model("RoomBooking", RoomBookingScheme)
 
 export const getRoomBookings = async() => RoomBookingModel.find();
 export const getRoomBookingById = async(id: String) => { 
-    RoomBookingModel.findOne({_id:id});
+    return RoomBookingModel.findOne({_id:id});
 };
 
 export const getRoomBookingByPhoneNumber = async (phoneNumber: string) =>
@@ -36,6 +36,6 @@ export const deleteRoomBookingById = async (id: String) => {
     return RoomBookingModel.findOneAndDelete({ _id: id });
 };
 
-export const updateRoomBookingById = async (id: String, data: Record<string,any>) => {
+export const updateRoomBookingById = async (id: string, data: Record<string,any>) => {
     return RoomBookingModel.findOneAndUpdate({ _id: id}, data);
 };

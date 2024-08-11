@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addRoomBooking, getRoomBookingByPhoneNumber } from "./../../models/roomBooking";
+import { addRoomBooking, getRoomBookingById, getRoomBookingByPhoneNumber, updateRoomBookingById } from "./../../models/roomBooking";
 
 export const createRoomBooking = async(
     req: express.Request,
@@ -27,5 +27,33 @@ export const createRoomBooking = async(
         return success("", res);
     } catch (error) {
         return badRequest("Internal server!", res, 500);
+    }
+}
+
+export const updateRoomBooking = async(
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const { id, customerName, identityNumber, phoneNumber, roomID, userID, checkInDate, checkOutDate } = req.body;
+        const existRoomBooking = await getRoomBookingById(id as string);
+        if(!existRoomBooking)
+        {
+            return badRequest("roomBooking Not Found!", res, 404);
+        }
+        const data = {
+            id,
+            customerName,
+            identityNumber,
+            phoneNumber,
+            roomID,
+            userID,
+            checkInDate,
+            checkOutDate
+        };
+        const roomBooking = await updateRoomBookingById(id as string, data);
+        return success("", res);
+    } catch (error) {
+        return badRequest("Internal server!",res,500);
     }
 }

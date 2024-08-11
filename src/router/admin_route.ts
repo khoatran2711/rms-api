@@ -5,7 +5,7 @@ import { createRoom, updateRoom, deleteRoom, getRoom, listRoom } from "../contro
 import { createProduct, deleteProduct, getProduct, listProduct, updateProduct } from "../controller/admin/products";
 import { createRoomType, deleteRoomType, getRoomType, listRoomType, updateRoomType } from "../controller/admin/roomTypes";
 import { createServiceBooking, deleteServiceBooking, updateServiceBooking } from "../controller/admin/serviceBooking";
-import { createRoomBooking } from "../controller/admin/roomBooking";
+import { createRoomBooking, updateRoomBooking } from "../controller/admin/roomBooking";
 
 const get = (url: string) => {
   return "/admin"+url
@@ -46,4 +46,5 @@ export default (router: express.Router) => {
 
   //RoomBooking routes
   router.post(get("/roomBooking/create"), createRoomBooking);
+  router.post(get("/roomBooking/update"), updateRoomBooking);
 };
