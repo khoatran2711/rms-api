@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addRoomBooking, getRoomBookingById, getRoomBookingByPhoneNumber, updateRoomBookingById } from "./../../models/roomBooking";
+import { addRoomBooking, deleteRoomBookingById, getRoomBookingById, getRoomBookingByPhoneNumber, updateRoomBookingById } from "./../../models/roomBooking";
 
 export const createRoomBooking = async(
     req: express.Request,
@@ -55,5 +55,23 @@ export const updateRoomBooking = async(
         return success("", res);
     } catch (error) {
         return badRequest("Internal server!",res,500);
+    }
+}
+
+export const deleteRoomBooking = async ( 
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const id = req.query.id;
+        const existRoomBooking = await getRoomBookingById(id as string);
+        if(!existRoomBooking)
+        {
+            return badRequest("roomBooking Not Found!", res, 404);
+        }
+        const deleteQuery = await deleteRoomBookingById(id as string);
+        return success("", res);
+    } catch (error) {
+        return badRequest("Internal server!", res, 500);
     }
 }
