@@ -11,20 +11,24 @@ export const ServiceModel = mongoose.model("Service", ServiceScheme);
 
 export const getServices = async() => ServiceModel.find();
 export const getServiceById = async (id: String) => {
-    ServiceModel.findOne({_id:id});
+   return ServiceModel.findOne({_id:id});
+};
+
+export const getServicesByName = async(name: string) =>{
+  return ServiceModel.findOne({ name });
 };
 
 export const getServiceWithQuery = async (query: any) => (ServiceModel as any).paginate(query.data,query.option)
 
-export const createService = async (value: Record<string, any>) => {
+export const addService = async (value: Record<string, any>) => {
   new ServiceModel(value).save().then((Service:any) => {
     return Service.toObject();
   });
 };
 
 export const deleteServiceById = async (id: String) => {
-    ServiceModel.findOneAndDelete({ _id: id });
+   return ServiceModel.findOneAndDelete({ _id: id });
 };
 export const updateServiceById = async (id: String, data: Record<string, any>) => {
-    ServiceModel.findOneAndUpdate({ _id: id }, data);
+   return ServiceModel.findOneAndUpdate({ _id: id }, data);
 };
