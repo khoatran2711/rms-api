@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addService, getServiceById, getServicesByName, updateServiceById } from "./../../models/service";
+import { addService, deleteServiceById, getServiceById, getServicesByName, updateServiceById } from "./../../models/service";
 
 export const createService = async (
     req: express.Request,
@@ -51,3 +51,20 @@ export const updateService = async(
     }
 };
 
+export const deleteService = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const id = req.query.id;
+        const existService = await getServiceById(id as string);
+        if(!existService)
+        {
+            return badRequest("Service Not Found!", res, 404);
+        }
+        const deleteQuery = await deleteServiceById(id as string);
+        return success("",res);
+    } catch (error) {
+        return badRequest("Internal server!", res, 500);
+    }
+}
