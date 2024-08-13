@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addService, getServicesByName } from "./../../models/service";
+import { addService, getServiceById, getServicesByName, updateServiceById } from "./../../models/service";
 
 export const createService = async (
     req: express.Request,
@@ -24,4 +24,30 @@ export const createService = async (
     } catch (error) {
         return badRequest("Internal server!", res, 500);
     }
-}
+};
+
+export const updateService = async(
+    req: express.Request,
+    res: express.Response
+) => { 
+    try {
+        const { id, name, decscription, productsID } = req.body;
+        const existService = await getServiceById(id as string);
+        if(!existService)
+        {
+            return badRequest("Service Not Found!", res, 404);
+        }
+        const data = {
+            id,
+            name,
+            decscription,
+            productsID
+        };
+        const service = await updateServiceById(id as string, data);
+        return success("", res);
+
+    } catch (error) {
+        return badRequest("Internal server!", res, 500);
+    }
+};
+
