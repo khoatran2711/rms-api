@@ -1,5 +1,4 @@
-import { createUser, getUserWithEmail } from "../../models/user";
-import { create } from "domain";
+import { addUser, getUserWithEmail } from "../../models/user";
 import express from "express";
 import { encode } from "../../helpers/index";
 import { badRequest, success } from "../../helpers/res.helper";
@@ -16,7 +15,7 @@ export const register = async (
       return badRequest("Email address already exists",res)
     }
     const hashPass = encode(password);
-    const user = await createUser({
+    const user = await addUser({
       email,
       userName,
       password: hashPass,
@@ -68,7 +67,7 @@ export const initAdmin = async (
     if (existingUser) {
       return badRequest("Email address already exists", res);
     }
-    const _ = await createUser(data);
+    const _ = await addUser(data);
     return success("", res);
   } catch (error) {
     badRequest("Interal Server", res, 505);
