@@ -7,7 +7,7 @@ import { createRoomType, deleteRoomType, getRoomType, listRoomType, updateRoomTy
 import { createServiceBooking, deleteServiceBooking, updateServiceBooking } from "../controller/admin/serviceBooking";
 import { createRoomBooking, deleteRoomBooking, updateRoomBooking } from "../controller/admin/roomBooking";
 import { createService, deleteService, getService, listService, updateService } from "../controller/admin/services";
-import { createUser } from "../controller/admin/users";
+import { createUser, updateUser } from "../controller/admin/users";
 
 const get = (url: string) => {
   return "/admin"+url
@@ -60,4 +60,5 @@ export default (router: express.Router) => {
 
   //User routes
   router.post(get("/user/create"), createUser);
+  router.post(get("/user/update"), updateUser);
 };

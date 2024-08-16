@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addUser, getUser, getUserById } from "../../models/user";
+import { addUser, getUser, getUserById, updateUserById } from "../../models/user";
 
 export const createUser = async(
     req: express.Request,
@@ -30,3 +30,33 @@ export const createUser = async(
         return badRequest("Internal server!", res, 500);
     }
 };
+
+export const updateUser = async (
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const { id, fullName, department, email, userName, password, phoneNumber, address, dateOfBirth, roleID } = req.body;
+        const existUser = await getUserById(id as string);
+        if(!existUser)
+        {
+            return badRequest("User Not Found!", res, 404);
+        }
+        const data = {
+            id,
+            fullName,
+            department,
+            email,
+            userName,
+            password,
+            phoneNumber,
+            address,
+            dateOfBirth,
+            roleID
+        };
+        const user = await updateUserById(id as string, data);
+        return success("", res);
+    } catch (error) {
+        return badRequest("Internal server!", res, 500);
+    }
+}

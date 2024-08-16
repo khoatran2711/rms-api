@@ -35,6 +35,6 @@ export const addUser = async (value: Record<string, any>) => {
 export const deleteUserbyId = async (id: String) => {
   return UserModel.findOneAndDelete({ _id: id });
 };
-export const updateUserById = async (id: String, data: Record<string, any>) => {
+export const updateUserById = async (id: string, data: Record<string, any>) => {
   return UserModel.findOneAndUpdate({ _id: id }, data);
 };
