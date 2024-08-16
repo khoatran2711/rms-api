@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addUser, deleteUserbyId, getUser, getUserById, updateUserById } from "../../models/user";
+import { addUser, deleteUserbyId, getUser, getUserById, updateUserById, UserModel } from "../../models/user";
 
 export const createUser = async(
     req: express.Request,
@@ -78,3 +78,20 @@ export const deleteUser = async (
         return badRequest("Internal server!", res, 500);
     }
 };
+
+export const getUserWithId = async(
+    req: express.Request,
+    res: express.Response
+) => {
+    try {
+        const id = req.query.id as string;
+        const user = await UserModel.findById(id);
+        if(!user)
+        {
+            return badRequest("User Not Found!", res, 404);
+        }
+        return success(user, res);
+    } catch (error) {
+        return badRequest("Internal server!", res, 500);
+    }
+}
