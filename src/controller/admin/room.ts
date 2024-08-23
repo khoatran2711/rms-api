@@ -1,4 +1,8 @@
-import { deleteRoombyId, getRoomWithQuery, updateRoomById } from "./../../models/room";
+import {
+  deleteRoombyId,
+  getRoomWithQuery,
+  updateRoomById,
+} from "./../../models/room";
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
 import {
@@ -8,49 +12,43 @@ import {
   RoomModel,
 } from "../../models/room";
 
-
-
-export const listRoom = async (
-  req: express.Request,
-  res: express.Response
-) => {
+export const listRoom = async (req: express.Request, res: express.Response) => {
   try {
-    let page = Number(req.query.page) 
-    let limit = Number(req.query.page) 
-    let name = req.query.name || null
-    let status = req.query.status || null
-    let roomType = req.query.roomType || null
-    let searchData = <any>{}
-    if(name){
-      searchData["name"] = name
+    let page = Number(req.query.page);
+    let limit = Number(req.query.limit);
+    let name = req.query.name || null;
+    let status = req.query.status || null;
+    let roomType = req.query.roomType || null;
+    let searchData = <any>{};
+    if (name) {
+      searchData["name"] = name;
     }
-    if(status){
-      searchData["status"] = status
+    if (status) {
+      searchData["status"] = status;
     }
-    if(roomType){
-      searchData["roomType"] = roomType
+    if (roomType) {
+      searchData["roomType"] = roomType;
     }
     const queryData = {
-    data: searchData || null, 
-    option:{
-      page: page,
-      limit: limit,
-      sort: { field: "desc", created_at: -1 },
-    }
-  }
-  const roomData = await getRoomWithQuery(queryData)
-  const {docs, ...pageData} = roomData
-  let data = <any>{}
-  data["data"] = docs
-  data["pageData"] = pageData
+      data: searchData || null,
+      option: {
+        populate:"roomTypeID",
+        page: page,
+        limit: limit,
+        sort: { field: "desc", created_at: -1 },
+      },
+    };
+    const roomData = await getRoomWithQuery(queryData);
+    const { docs, ...pageData } = roomData;
+    let data = <any>{};
+    data["data"] = docs;
+    data["pageData"] = pageData;
 
-  success(data,res)
+    success(data, res);
   } catch (error) {
     return badRequest("Internal server !", res, 500);
   }
-
-
-}
+};
 
 export const createRoom = async (
   req: express.Request,
@@ -67,6 +65,8 @@ export const createRoom = async (
       roomTypeID,
       price,
       status,
+      checkInDate: 0,
+      checkOutDate: 0,
     };
     const addNewQuery = await addRoom(roomData);
     return success("", res);
@@ -83,7 +83,7 @@ export const updateRoom = async (
     const { id, name, roomTypeID, price, status } = req.body;
     const existRoom = await getRoomByID(id as string);
     if (!existRoom) {
-      return badRequest("Room Not Found !", res,404);
+      return badRequest("Room Not Found !", res, 404);
     }
     const data = {
       id,
@@ -92,7 +92,7 @@ export const updateRoom = async (
       price,
       status,
     };
-    const room = await updateRoomById(id as string, data)
+    const room = await updateRoomById(id as string, data);
     return success("", res);
   } catch (error) {
     return badRequest("Internal server !", res, 500);
@@ -104,34 +104,27 @@ export const deleteRoom = async (
   res: express.Response
 ) => {
   try {
-    const id = req.query.id ; 
-    const existRoom = await getRoomByID(id as string) ;
+    const id = req.query.id;
+    const existRoom = await getRoomByID(id as string);
     if (!existRoom) {
-      return badRequest("Room Not Found !", res,404);
+      return badRequest("Room Not Found !", res, 404);
     }
-    const deleteQuery = await deleteRoombyId(id as string);   
-    return success("",res);
-  }
-  catch (error) {
+    const deleteQuery = await deleteRoombyId(id as string);
+    return success("", res);
+  } catch (error) {
     return badRequest("Internal server !", res, 500);
   }
-}
+};
 
-
-export const getRoom = async (
-  req: express.Request,
-  res: express.Response
-) => {
+export const getRoom = async (req: express.Request, res: express.Response) => {
   try {
-    const id = req.query.id as string
+    const id = req.query.id as string;
     const room = await RoomModel.findById(id);
-    if(!room)
-    {
-      return badRequest("Room Not Found !", res ,404);
+    if (!room) {
+      return badRequest("Room Not Found !", res, 404);
     }
-    return success(room,res);
-  }
-  catch (error) {
+    return success(room, res);
+  } catch (error) {
     return badRequest("Internal server !", res, 500);
   }
-}
+};

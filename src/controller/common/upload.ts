@@ -11,11 +11,15 @@ export const uploadImage = async (
       return badRequest("file Not Found!", res, 404);
     }
     const imageFile = req.files.file as UploadedFile;
+    console.log(imageFile.mimetype);
+    if (!imageFile.mimetype.includes("image")) {
+      return badRequest("File type is not allowed!", res, 400);
+    }
     imageFile.mv("./src/public/upload/" + imageFile.name);
     let fileName = "/public/upload/" + imageFile.name;
     return success(fileName, res);
   } catch (error) {
     console.log(error);
-    return badRequest("Internal server!", res, 500);
+    return badRequest("Internal server!", res, 500); 
   }
 };

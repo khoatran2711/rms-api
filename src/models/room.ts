@@ -4,9 +4,11 @@ import mongoose from "mongoose";
 
 const RoomScheme = NewScheme ({
     name: { type: String },
-    roomTypeID: { type: String },
+    roomTypeID: { type: String, ref: 'RoomTypes' },
     price: { type: Number },
-    status: { type: String } 
+    status: { type: String },
+    checkInDate: { type: Number },
+    checkOutDate: { type: Number },
 })
 
 export const RoomModel = mongoose.model("Room", RoomScheme);

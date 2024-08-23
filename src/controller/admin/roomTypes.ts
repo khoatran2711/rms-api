@@ -9,7 +9,6 @@ import {
   RoomTypesModel,
   updateRoomTypesById,
 } from "./../../models/roomTypes";
-import { getRoomBookingWithQuery } from "models/roomBooking";
 
 export const listRoomType = async (
   req: express.Request,
@@ -73,6 +72,7 @@ export const updateRoomType = async (
   try {
     const { id, name, maxPeople, imageUrl, decscription } = req.body;
     const existRoomType = await getRoomTypesById(id as string);
+    console.log(existRoomType)
     if (!existRoomType) {
       return badRequest("RoomType Not Found!", res, 404);
     }
