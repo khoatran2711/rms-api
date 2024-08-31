@@ -29,6 +29,7 @@ export const register = async (
 export const login = async (req: express.Request, res: express.Response) => {
   try {
     const { email, password } = req.body;
+    console.log(email, password)
     const user = await getUserWithEmail(email);
     if (!user) {
       return badRequest("username or password incorrect ",res)

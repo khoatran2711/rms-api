@@ -123,7 +123,7 @@ export const getRoom = async (req: express.Request, res: express.Response) => {
     if (!room) {
       return badRequest("Room Not Found !", res, 404);
     }
-    return success(room, res);
+    return success([room], res);
   } catch (error) {
     return badRequest("Internal server !", res, 500);
   }
