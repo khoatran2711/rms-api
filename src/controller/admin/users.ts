@@ -130,7 +130,7 @@ export const getUserWithId = async(
         {
             return badRequest("User Not Found!", res, 404);
         }
-        return success(user, res);
+        return success([user], res);
     } catch (error) {
         return badRequest("Internal server!", res, 500);
     }

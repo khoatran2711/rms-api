@@ -114,7 +114,7 @@ export const getProduct = async (
         {
             return badRequest("Product Not Found !", res, 404);
         }
-        return success(product, res);
+        return success([product], res);
     }
     catch (error) 
     {

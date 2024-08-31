@@ -117,7 +117,7 @@ export const getRoomType = async (
     if (!roomtype) {
       return badRequest("RoomType Not Found!", res, 404);
     }
-    return success(roomtype, res);
+    return success([roomtype], res);
   } catch (error) {
     return badRequest("Internal server!", res, 500);
   }

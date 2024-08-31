@@ -118,7 +118,7 @@ export const getService = async (
         {
             return badRequest("Service Not Found!", res, 404);
         }
-        return success(service, res);
+        return success([service], res);
     } catch (error) {
         return badRequest("Internal server!", res, 500);
     }
