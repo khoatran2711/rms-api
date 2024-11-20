@@ -1,6 +1,6 @@
 import express from "express";
 import { badRequest, success } from "../../helpers/res.helper";
-import { addService, deleteServiceById, getServiceById, getServicesByName, getServiceWithQuery, ServiceModel, updateServiceById } from "./../../models/service";
+import { addService, deleteServiceById, getServiceById, getServices, getServicesByName, getServiceWithQuery, ServiceModel, updateServiceById } from "./../../models/service";
 import { ProductScheme } from "models/product";
 
 export const listService = async (
@@ -28,12 +28,13 @@ export const listService = async (
                 sort: { field: "desc", created_at: -1 },
             }
         }
-        const serviceData = await getServiceWithQuery(queryData);
-        const {docs, ...pageData} = serviceData;
-        let data = <any>{}
-        data["data"] = docs;
-        data["pageData"] = pageData;
-        success(data, res);
+        // const serviceData = await getServiceWithQuery(queryData);
+        const serviceData = await getServices();
+        // const {docs, ...pageData} = serviceData;
+        // let data = <any>{}
+        // data["data"] = serviceData;
+        // data["pageData"] = pageData;
+        success(serviceData, res);
     } 
     catch (error) {
         return badRequest("Internal server!", res, 500);
@@ -45,7 +46,7 @@ export const createService = async (
     res: express.Response
 ) => {
     try {
-        const { name, decscription, productsID } = req.body;
+        const { name, decscription,imageURL } = req.body;
         const existService = await getServicesByName(name);
         if(existService)
         {
@@ -54,7 +55,7 @@ export const createService = async (
         const serviceData = {
             name,
             decscription,
-            productsID
+            imageURL
         };
         const addNewQuery = await addService(serviceData);
         return success("", res);
@@ -69,17 +70,17 @@ export const updateService = async(
     res: express.Response
 ) => { 
     try {
-        const { id, name, decscription, productsID } = req.body;
+        const { id, name, decscription,imageURL } = req.body;
         const existService = await getServiceById(id as string);
         if(!existService)
         {
             return badRequest("Service Not Found!", res, 404);
-        }
+        }   
         const data = {
             id,
             name,
             decscription,
-            productsID
+            imageURL
         };
         const service = await updateServiceById(id as string, data);
         return success("", res);

@@ -19,7 +19,7 @@ export default (router: express.Router) => {
   router.post(get("/auth/login"), login);
   router.post(get("/auth/init"), initAdmin);
 
-
+  
   // Room routes
   router.get(get("/room/list"),listRoom);
   router.post(get("/room/create"),createRoom);

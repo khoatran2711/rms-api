@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const ServiceScheme = NewScheme({
     name: { type: String },
     decscription: {type: String},
-    productsID: { type: [String] },
+    imageURL: {type: String}
   });
 
 export const ServiceModel = mongoose.model("Service", ServiceScheme);

@@ -36,6 +36,7 @@ app.use(express.json())
 app.use(fileUpload({
   createParentPath: true,
 }));
+
 //static
 app.use("/public", express.static(path.join(__dirname, "public")));
 

@@ -1,4 +1,4 @@
-import { uploadImage } from '../controller/common/upload';
+import { downloadFile, uploadImage } from '../controller/common/upload';
 import express from 'express';
 
 const get = (url: string) => {
@@ -7,4 +7,5 @@ const get = (url: string) => {
 
   export default (router: express.Router) => {
     router.post(get("/image/upload"),uploadImage)
+    router.get(get("/file/download"),downloadFile)
   }

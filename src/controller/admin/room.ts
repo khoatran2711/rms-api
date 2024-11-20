@@ -18,7 +18,8 @@ export const listRoom = async (req: express.Request, res: express.Response) => {
     let limit = Number(req.query.limit);
     let name = req.query.name || null;
     let status = req.query.status || null;
-    let roomType = req.query.roomType || null;
+    let roomTypeID = req.query.roomTypeID || null;
+
     let searchData = <any>{};
     if (name) {
       searchData["name"] = name;
@@ -26,18 +27,20 @@ export const listRoom = async (req: express.Request, res: express.Response) => {
     if (status) {
       searchData["status"] = status;
     }
-    if (roomType) {
-      searchData["roomType"] = roomType;
+    if (roomTypeID) {
+      searchData["roomTypeID"] = roomTypeID;
     }
+
     const queryData = {
       data: searchData || null,
       option: {
-        populate:"roomTypeID",
+        populate: "roomTypeID",
         page: page,
         limit: limit,
         sort: { field: "desc", created_at: -1 },
       },
     };
+
     const roomData = await getRoomWithQuery(queryData);
     const { docs, ...pageData } = roomData;
     let data = <any>{};
