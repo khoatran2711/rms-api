@@ -19,7 +19,6 @@ export const getRoomBookings = async() => RoomBookingModel.find();
 export const getRoomBookingById = async(id: String) => { 
     return RoomBookingModel.findOne({_id:id});
 };
-
 export const getRoomBookingByPhoneNumber = async (phoneNumber: string) =>
 {
     return RoomBookingModel.findOne({ phoneNumber });

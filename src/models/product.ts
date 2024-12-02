@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 export const ProductScheme = NewScheme({
     name: { type: String },
     decscription: {type: String},
+    serviceID: {type: String},
+    imgUrl: {type: String},
     price: {type: String},
   });
 

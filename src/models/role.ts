@@ -24,6 +24,6 @@ export const createRole = async (value: Record<string, any>) => {
 export const deleteRolebyId = async (id: String) => {
     RoleModel.findOneAndDelete({ _id: id });
 };
-export const updateUserById = async (id: String, data: Record<string, any>) => {
+export const updateRoleById = async (id: String, data: Record<string, any>) => {
     RoleModel.findOneAndUpdate({ _id: id }, data);
 };

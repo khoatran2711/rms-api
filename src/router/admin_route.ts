@@ -1,7 +1,7 @@
 import express from "express";
 import { errorMiddleware } from "../middlewares/err.middleware";
 import { initAdmin, login, register } from "../controller/admin/authentication";
-import { createRoom, updateRoom, deleteRoom, getRoom, listRoom } from "../controller/admin/room";
+import { createRoom, updateRoom, deleteRoom, getRoom, listRoom, listAvailableRoom } from "../controller/admin/room";
 import { createProduct, deleteProduct, getProduct, listProduct, updateProduct } from "../controller/admin/products";
 import { createRoomType, deleteRoomType, getRoomType, listRoomType, updateRoomType } from "../controller/admin/roomTypes";
 import { createServiceBooking, deleteServiceBooking, updateServiceBooking } from "../controller/admin/serviceBooking";
@@ -26,6 +26,7 @@ export default (router: express.Router) => {
   router.post(get("/room/update"),updateRoom);
   router.delete(get("/room/delete"),deleteRoom);
   router.get(get("/room/detail"),getRoom);
+  router.get(get("/room/available"),listAvailableRoom);
 
   //Products routes
   router.get(get("/product/list"),listProduct);
@@ -59,9 +60,9 @@ export default (router: express.Router) => {
   router.get(get("/service/detail"), getService);
 
   //User routes
-  router.get(get("/user/list"), listUser);
-  router.post(get("/user/create"), createUser);
-  router.post(get("/user/update"), updateUser);
-  router.delete(get("/user/delete"), deleteUser);
-  router.get(get("/user/detail"), getUserWithId);
+  router.get(get("/employee/list"), listUser);
+  router.post(get("/employee/create"), createUser);
+  router.post(get("/employee/update"), updateUser);
+  router.delete(get("/employee/delete"), deleteUser);
+  router.get(get("/employee/detail"), getUserWithId);
 };

@@ -15,7 +15,6 @@ export const uploadImage = async (
       return badRequest("file Not Found!", res, 404);
     }
     const imageFile = req.files.file as UploadedFile;
-    console.log(imageFile.mimetype);
     if (!imageFile.mimetype.includes("image")) {
       return badRequest("File type is not allowed!", res, 400);
     }

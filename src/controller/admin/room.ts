@@ -11,6 +11,7 @@ import {
   getRoomByName,
   RoomModel,
 } from "../../models/room";
+import { listOrders } from "../../models/order";
 
 export const listRoom = async (req: express.Request, res: express.Response) => {
   try {
@@ -130,4 +131,18 @@ export const getRoom = async (req: express.Request, res: express.Response) => {
   } catch (error) {
     return badRequest("Internal server !", res, 500);
   }
+};
+export const listAvailableRoom = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  const { start, end } = req.query;
+  const queryData = {
+    status: "confirmed",
+    $or: [{ endDate: { $gte: start } }, { startDate: { $lte: end } }],
+  };
+  const listOrderFromStartToEnd = await listOrders(queryData);
+  // console.log(listOrderFromStartToEnd);
+  const listRooms = listOrderFromStartToEnd.map((order) => order.rooms);
+  return success(listRooms, res);
 };
