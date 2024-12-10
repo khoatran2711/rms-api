@@ -10,11 +10,11 @@ const UserScheme = NewScheme({
   phoneNumber: { type: String },
   address: { type: String },
   dateOfBirth: { type: String },
-  roleID: { type: String },
+  roleID: { type: String, ref: "Role" },
 })
 export const UserModel = mongoose.model("User", UserScheme);
 
-export const getUsers = () => UserModel.find();
+export const getUsers = () => UserModel.find({roleID: {$ne: '67580b736a7950b83e9558bc'}});
 export const getUserWithEmail = (email: String) => UserModel.findOne({ email });
 export const getUserById = async (id: String) => {
   return UserModel.findOne({_id:id});

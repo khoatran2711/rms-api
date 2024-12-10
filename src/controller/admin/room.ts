@@ -12,6 +12,7 @@ import {
   RoomModel,
 } from "../../models/room";
 import { listOrders } from "../../models/order";
+import mongoose from "mongoose";
 
 export const listRoom = async (req: express.Request, res: express.Response) => {
   try {
@@ -138,11 +139,23 @@ export const listAvailableRoom = async (
 ) => {
   const { start, end } = req.query;
   const queryData = {
-    status: "confirmed",
-    $or: [{ endDate: { $gte: start } }, { startDate: { $lte: end } }],
+    orderType: "booking",
+    status: {
+      $nin: ["Canceled", "CheckedOut"], 
+    },
+    $or: [{ checkOutDate: { $gte: start } }, { checkInDate: { $lte: end } }],
   };
   const listOrderFromStartToEnd = await listOrders(queryData);
-  // console.log(listOrderFromStartToEnd);
+
   const listRooms = listOrderFromStartToEnd.map((order) => order.rooms);
-  return success(listRooms, res);
+  const unavailableRoomIds = listRooms
+    .flat()
+    .filter(item => item && item.room && item.room.id)
+    .map(item => item.room.id);
+
+  const availableRooms = await RoomModel.find({
+    _id: { $nin: unavailableRoomIds },
+    status: "Available",
+  }).populate("roomTypeID");
+  return success(availableRooms, res);
 };

@@ -8,7 +8,9 @@ const RoleScheme = NewScheme({
 
 export const RoleModel = mongoose.model("Role", RoleScheme);
 
-export const getRoles = async() => RoleModel.find();
+export const getRoles = async() => RoleModel.find({name: {
+  $ne: 'admin'
+}});
 export const getRoleById = async (id: String) => {
   return RoleModel.findOne({_id:id});
 };

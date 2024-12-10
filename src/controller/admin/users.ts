@@ -5,6 +5,7 @@ import {
   deleteUserbyId,
   getUser,
   getUserById,
+  getUsers,
   getUserWithQuery,
   updateUserById,
   UserModel,
@@ -27,7 +28,7 @@ export const listUser = async (req: express.Request, res: express.Response) => {
     if (email) searchData["email"] = email;
 
     const queryData = {
-      data: searchData || null,
+      data: {...searchData, roleID: { $ne: "67580b736a7950b83e9558bc" }},
       option: {
         page: page,
         limit: limit,
@@ -35,12 +36,13 @@ export const listUser = async (req: express.Request, res: express.Response) => {
       },
     };
 
-    const userData = await getUserWithQuery(queryData);
-    const { docs, ...pageData } = userData;
-    let data = <any>{};
-    data["data"] = docs;
-    data["pageData"] = pageData;
-
+    // const userData = await getUserWithQuery(queryData);
+    // const { docs, ...pageData } = userData;
+    // let data = <any>{};
+    // data["data"] = docs;
+    // data["pageData"] = pageData;
+    const userData = await getUsers();
+    const data = userData.reverse();
     success(data, res);
   } catch (error) {
     return badRequest("Internal server!", res, 500);
