@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const RoleScheme = NewScheme({
     name: { type: String },
-    serviceID: { type: [String] },
+    permission  : { type: [String] },
   });
 
 export const RoleModel = mongoose.model("Role", RoleScheme);

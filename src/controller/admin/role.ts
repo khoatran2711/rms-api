@@ -1,5 +1,5 @@
-import { badRequest, success } from "helpers/res.helper";
-import { getRoles, createRole, updateRoleById, getRoleById } from 'models/role';
+import { badRequest, success } from "../../helpers/res.helper";
+import { getRoles, createRole, updateRoleById, getRoleById, deleteRolebyId } from '../../models/role';
 import express from "express";
 
 export const listRole = async (req: express.Request, res: express.Response) => {
@@ -15,12 +15,15 @@ export const createNewRole = async (
   res: express.Response
 ) => {
   try {
-    const { name, description } = req.body;
+    const { name, permission } = req.body;
 
     const roleData = {
       name,
-      description,
+      permission,
     };
+    if(!name ) {
+      return badRequest("Missing required Name!", res, 400);
+    }
     const addNewQuery = await createRole(roleData);
     return success("", res);
   } catch (error) {
@@ -32,12 +35,12 @@ export const updateRole = async (
   res: express.Response
 ) => {
   try {
-    const { id, name, description } = req.body;
+    const { id, name, permission } = req.body;
 
     const data = {
       id,
       name,
-      description,
+      permission,
     };
     const role = await updateRoleById(id as string, data);
     return success("", res);
@@ -50,6 +53,19 @@ export const getRole = async ( req: express.Request, res: express.Response) => {
     const id = req.query.id;
     const roleData = await getRoleById(id as string);
     success(roleData, res);
+  } catch (error) {
+    return badRequest("Internal server!", res, 500);
+  }
+}
+export const deleteRole = async ( req: express.Request, res: express.Response) => {
+  try {
+    const id = req.query.id;
+    const roleData = await getRoleById(id as string);
+    if(!roleData) {
+      return badRequest("Role Not Found!", res, 404);
+    }
+    const deleteRequest = await deleteRolebyId(id as string);
+    success("", res);
   } catch (error) {
     return badRequest("Internal server!", res, 500);
   }
