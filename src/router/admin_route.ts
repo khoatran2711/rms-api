@@ -53,7 +53,14 @@ import {
   newOrder,
   updateStatusOrder,
 } from "../controller/admin/order";
-import { listRole, createNewRole, updateRole, getRole, deleteRole } from "../controller/admin/role";
+import {
+  listRole,
+  createNewRole,
+  updateRole,
+  getRole,
+  deleteRole,
+} from "../controller/admin/role";
+import { getOverviewData, getSalesReport } from "../controller/admin/report";
 
 const get = (url: string) => {
   return "/admin" + url;
@@ -122,4 +129,8 @@ export default (router: express.Router) => {
   router.post(get("/order/update-status"), updateStatusOrder);
   // router.delete(get("/order/delete"), deleteOrder);
   router.get(get("/order/detail"), getOrder);
+
+  //Report routes
+  router.get(get("/report/overview"), getOverviewData);
+  router.get(get("/report/sale-report"), getSalesReport);
 };
