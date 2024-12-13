@@ -21,14 +21,14 @@ export const listUser = async (req: express.Request, res: express.Response) => {
     let roleID = req.query.roleID || null;
     let email = req.query.email || null;
     let searchData = <any>{};
-    
+
     if (roleID) searchData["roleID"] = roleID;
     if (userName) searchData["userName"] = userName;
     if (phoneNumber) searchData["phoneNumber"] = phoneNumber;
     if (email) searchData["email"] = email;
 
     const queryData = {
-      data: {...searchData, roleID: { $ne: "67580b736a7950b83e9558bc" }},
+      data: { ...searchData, roleID: { $ne: "67580b736a7950b83e9558bc" } },
       option: {
         page: page,
         limit: limit,
@@ -157,4 +157,15 @@ export const getUserWithId = async (
   } catch (error) {
     return badRequest("Internal server!", res, 500);
   }
+};
+export const getInfomation = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const user = (req as any).user;
+    const { _id, __v, password, ...rest } = user._doc;
+    const data = { ...rest };
+    return success([data], res);
+  } catch (error) {}
 };

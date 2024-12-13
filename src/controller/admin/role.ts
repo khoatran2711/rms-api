@@ -70,3 +70,15 @@ export const deleteRole = async ( req: express.Request, res: express.Response) =
     return badRequest("Internal server!", res, 500);
   }
 }
+export const getRolePermission = async ( req: express.Request, res: express.Response) => {
+  try {
+    const id = req.query.id;
+    const roleData = await getRoleById(id as string);
+    if(!roleData) {
+      return badRequest("Role Not Found!", res, 404);
+    }
+    success(roleData.permission, res);
+  } catch (error) {
+    return badRequest("Internal server!", res, 500);
+  }
+}

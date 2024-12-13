@@ -46,6 +46,7 @@ import {
   updateUser,
   getUserWithId,
   listUser,
+  getInfomation,
 } from "../controller/admin/users";
 import {
   AllOrders,
@@ -59,78 +60,97 @@ import {
   updateRole,
   getRole,
   deleteRole,
+  getRolePermission,
 } from "../controller/admin/role";
 import { getOverviewData, getSalesReport } from "../controller/admin/report";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const get = (url: string) => {
   return "/admin" + url;
 };
 export default (router: express.Router) => {
   // Authentication routes
-  router.post(get("/auth/register"), register);
+  router.post(get("/auth/register"),  register);
   router.post(get("/auth/login"), login);
   router.post(get("/auth/init"), initAdmin);
 
+
+  router.get(get("/user/info"), authMiddleware, getInfomation)
   // Room routes
-  router.get(get("/room/list"), listRoom);
-  router.post(get("/room/create"), createRoom);
-  router.post(get("/room/update"), updateRoom);
-  router.delete(get("/room/delete"), deleteRoom);
-  router.get(get("/room/detail"), getRoom);
-  router.get(get("/room/available"), listAvailableRoom);
+  router.get(get("/room/list"), authMiddleware, listRoom);
+  router.post(get("/room/create"), authMiddleware, createRoom);
+  router.post(get("/room/update"), authMiddleware, updateRoom);
+  router.delete(get("/room/delete"), authMiddleware, deleteRoom);
+  router.get(get("/room/detail"), authMiddleware, getRoom);
+  router.get(get("/room/available"), authMiddleware, listAvailableRoom);
 
   //Roles routes
-  router.get(get("/role/list"), listRole);
-  router.post(get("/role/create"), createNewRole);
-  router.post(get("/role/update"), updateRole);
-  router.delete(get("/role/delete"), deleteRole);
-  router.get(get("/role/detail"), getRole);
+  router.get(get("/role/list"), authMiddleware, listRole);
+  router.post(get("/role/create"), authMiddleware, createNewRole);
+  router.post(get("/role/update"), authMiddleware, updateRole);
+  router.delete(get("/role/delete"), authMiddleware, deleteRole);
+  router.get(get("/role/detail"), authMiddleware, getRole);
+  router.get(get("/role/permisson"), authMiddleware, getRolePermission);
   //Products routes
-  router.get(get("/product/list"), listProduct);
-  router.post(get("/product/create"), createProduct);
-  router.post(get("/product/update"), updateProduct);
-  router.delete(get("/product/delete"), deleteProduct);
-  router.get(get("/product/detail"), getProduct);
+  router.get(get("/product/list"), authMiddleware, listProduct);
+  router.post(get("/product/create"), authMiddleware, createProduct);
+  router.post(get("/product/update"), authMiddleware, updateProduct);
+  router.delete(get("/product/delete"), authMiddleware, deleteProduct);
+  router.get(get("/product/detail"), authMiddleware, getProduct);
 
   //RoomTypes routes
-  router.get(get("/roomType/list"), listRoomType);
-  router.post(get("/roomType/create"), createRoomType);
-  router.post(get("/roomType/update"), updateRoomType);
-  router.delete(get("/roomType/delete"), deleteRoomType);
-  router.get(get("/roomType/detail"), getRoomType);
+  router.get(get("/roomType/list"), authMiddleware, listRoomType);
+  router.post(get("/roomType/create"), authMiddleware, createRoomType);
+  router.post(get("/roomType/update"), authMiddleware, updateRoomType);
+  router.delete(get("/roomType/delete"), authMiddleware, deleteRoomType);
+  router.get(get("/roomType/detail"), authMiddleware, getRoomType);
 
   //ServiceBooking routes
-  router.post(get("/serviceBooking/create"), createServiceBooking);
-  router.post(get("/serviceBooking/update"), updateServiceBooking);
-  router.delete(get("/serviceBooking/delete"), deleteServiceBooking);
+  router.post(
+    get("/serviceBooking/create"),
+    authMiddleware,
+    createServiceBooking
+  );
+  router.post(
+    get("/serviceBooking/update"),
+    authMiddleware,
+    updateServiceBooking
+  );
+  router.delete(
+    get("/serviceBooking/delete"),
+    authMiddleware,
+    deleteServiceBooking
+  );
+
 
   //RoomBooking routes
-  router.post(get("/roomBooking/create"), createRoomBooking);
-  router.post(get("/roomBooking/update"), updateRoomBooking);
-  router.delete(get("/roomBooking/delete"), deleteRoomBooking);
+  router.post(get("/roomBooking/create"), authMiddleware, createRoomBooking);
+  router.post(get("/roomBooking/update"), authMiddleware, updateRoomBooking);
+  router.delete(get("/roomBooking/delete"), authMiddleware, deleteRoomBooking);
 
   //Service routes
-  router.get(get("/service/list"), listService);
-  router.post(get("/service/create"), createService);
-  router.post(get("/service/update"), updateService);
-  router.delete(get("/service/delete"), deleteService);
-  router.get(get("/service/detail"), getService);
+  router.get(get("/service/list"), authMiddleware, listService);
+  router.post(get("/service/create"), authMiddleware, createService);
+  router.post(get("/service/update"), authMiddleware, updateService);
+  router.delete(get("/service/delete"), authMiddleware, deleteService);
+  router.get(get("/service/detail"), authMiddleware, getService);
 
   //User routes
-  router.get(get("/employee/list"), listUser);
-  router.post(get("/employee/create"), createUser);
-  router.post(get("/employee/update"), updateUser);
-  router.delete(get("/employee/delete"), deleteUser);
-  router.get(get("/employee/detail"), getUserWithId);
+  router.get(get("/employee/list"), authMiddleware, listUser);
+  router.post(get("/employee/create"), authMiddleware, createUser);
+  router.post(get("/employee/update"), authMiddleware, updateUser);
+  router.delete(get("/employee/delete"), authMiddleware, deleteUser);
+  router.get(get("/employee/detail"), authMiddleware, getUserWithId);
 
   // Order routes
-  router.get(get("/order/list"), AllOrders);
-  router.post(get("/order/create"), newOrder);
-  router.post(get("/order/update-status"), updateStatusOrder);
+  router.get(get("/order/list"), authMiddleware, AllOrders);
+  router.post(get("/order/create"), authMiddleware, newOrder);
+  router.post(get("/order/update-status"), authMiddleware, updateStatusOrder);
   // router.delete(get("/order/delete"), deleteOrder);
-  router.get(get("/order/detail"), getOrder);
+  router.get(get("/order/detail"), authMiddleware, getOrder);
 
   //Report routes
-  router.get(get("/report/overview"), getOverviewData);
-  router.get(get("/report/sale-report"), getSalesReport);
+  router.get(get("/report/overview"), authMiddleware, getOverviewData);
+  router.get(get("/report/sale-report"), authMiddleware, getSalesReport);
+  
 };
