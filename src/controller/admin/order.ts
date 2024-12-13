@@ -18,10 +18,11 @@ export const newOrder = async (req: express.Request, res: express.Response) => {
       status,
     } = req.body;
     const user = (req as any).user;
+    const { _id } = user._doc;
     const orderData = {
       rooms,
       services,
-      userID,
+      userID: _id,
       customerName,
       identityNumber,
       phoneNumber,
@@ -64,8 +65,11 @@ export const AllOrders = async (
         sort: { field: "desc", created_at: -1 },
       },
     };
-    console.log(queryData);
-
+    const user = (req as any).user;
+    const { _id, userName  } = user._doc;
+    if(userName != "admin"){
+      searchData["userID"] = _id;
+    }
     const orderData = await getOrderWithQuery(queryData);
 
     const { docs, ...pageData } = orderData;
