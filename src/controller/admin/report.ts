@@ -111,11 +111,15 @@ export const getSalesReport = async (
   res: express.Response
 ) => {
   try {
-    const {start,end,type} = req.query
-    if(!start || !end) return badRequest("Missing required fields", res, 400);
-    
-    const orderByDay = await countOrdersByDay(Number(start), Number(end),type as string);
-    const data = orderByDay
+    const { start, end, type } = req.query;
+    if (!start || !end) return badRequest("Missing required fields", res, 400);
+
+    const orderByDay = await countOrdersByDay(
+      Number(start),
+      Number(end),
+      type as string
+    );
+    const data = orderByDay;
     return success(data, res);
   } catch (error) {
     return badRequest("Internal server !", res, 500);

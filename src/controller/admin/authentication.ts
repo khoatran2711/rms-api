@@ -39,13 +39,13 @@ export const login = async (req: express.Request, res: express.Response) => {
     if (user.password !== hashPass) {
       return badRequest("username or password incorrect ", res);
     }
-    const { password: _, ...rest } = user;
+    const { password: _,roleID, ...rest } = user;
     const sucessUser = {
       ...rest,
     };
     const access_token = encode(sucessUser, { expiresIn: "1 day" });
-    return success({ access_token, expiresIn: "1 day" }, res);
-  } catch (error) {
+    return success({ access_token, expiresIn: "1 day", roleID:roleID  }, res);
+  } catch (error) { 
     console.log(error);
     badRequest("Interal server", res, 505);
   }

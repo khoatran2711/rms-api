@@ -52,7 +52,7 @@ export const getRole = async ( req: express.Request, res: express.Response) => {
   try {
     const id = req.query.id;
     const roleData = await getRoleById(id as string);
-    success(roleData, res);
+    success([roleData], res);
   } catch (error) {
     return badRequest("Internal server!", res, 500);
   }
